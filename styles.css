@@ -1,0 +1,516 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.card {
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ============================================
+   VERSION 1: Minimal Elegant (Light)
+   ============================================ */
+.version-1 {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+    box-shadow:
+        0 4px 24px rgba(102, 126, 234, 0.15),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.version-1 .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.version-1 .label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.version-1 .percentage {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.version-1 .progress-bar-container {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.version-1 .progress-bar {
+    height: 100%;
+    border-radius: 20px;
+    position: relative;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gradient-1 {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+.shimmer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            transparent 100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.version-1 .stats-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.version-1 .stat {
+    text-align: center;
+}
+
+.version-1 .stat-value {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.version-1 .stat-label {
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   VERSION 2: Glassmorphism Dark
+   ============================================ */
+.version-2 {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+    z-index: 0;
+}
+
+.orb-1 {
+    width: 150px;
+    height: 150px;
+    background: #667eea;
+    top: -50px;
+    right: -30px;
+}
+
+.orb-2 {
+    width: 100px;
+    height: 100px;
+    background: #f093fb;
+    bottom: -30px;
+    left: 20px;
+}
+
+.version-2 .card-content {
+    position: relative;
+    z-index: 1;
+}
+
+.version-2 .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.version-2 h2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 1px;
+}
+
+.version-2 .big-percentage {
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.version-2 .big-percentage span {
+    font-size: 24px;
+    opacity: 0.7;
+}
+
+.progress-track {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    border-radius: 10px;
+    position: relative;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-glow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: #f093fb;
+    border-radius: 50%;
+    filter: blur(8px);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: translateY(-50%) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.2);
+    }
+}
+
+.milestone {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+.milestone::after {
+    content: attr(data-label);
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.time-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.time-box.highlight {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(240, 147, 251, 0.2));
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.time-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.time-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   VERSION 3: Circular Progress
+   ============================================ */
+.version-3 {
+    background: linear-gradient(145deg, #1e1e2f 0%, #2d2d44 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.circular-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 20px;
+}
+
+.circular-progress {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.bg-circle {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 10;
+}
+
+.progress-circle {
+    fill: none;
+    stroke: url(#gradient);
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 534;
+    stroke-dashoffset: 534;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.5));
+}
+
+.circular-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.circular-percent {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.circular-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.circular-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.circular-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circular-stat .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.circular-stat .label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+}
+
+.divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================
+   VERSION 4: Compact Notion Widget
+   ============================================ */
+.version-4 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 20px;
+}
+
+.v4-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.v4-icon {
+    font-size: 20px;
+}
+
+.v4-title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.v4-title span {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.v4-progress-track {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+}
+
+.v4-progress-fill {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.v4-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.v4-footer strong {
+    font-weight: 700;
+}
+
+/* ============================================
+   VERSION 5: Ultra Minimal
+   ============================================ */
+.version-5 {
+    background: #fff;
+    padding: 18px 20px;
+}
+
+.v5-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+}
+
+.v5-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    min-width: 30px;
+}
+
+.v5-bar-container {
+    flex: 1;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.v5-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #3b82f6);
+    border-radius: 10px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.v5-percent {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f2937;
+    min-width: 50px;
+    text-align: right;
+}
+
+.v5-details {
+    font-size: 12px;
+    color: #6b7280;
+    padding-left: 44px;
+}
+
+.v5-details span {
+    font-weight: 600;
+    color: #374151;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .card {
+        padding: 20px 16px;
+    }
+
+    .version-2 .big-percentage {
+        font-size: 32px;
+    }
+
+    .time-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .time-box {
+        padding: 12px;
+    }
+}
