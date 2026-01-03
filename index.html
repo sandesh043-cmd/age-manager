@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Life Progress Widget</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Life Progress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,61 +13,55 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0f0f1a;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: transparent;
+            margin: 0;
+            padding: 0;
         }
 
         .widget {
             width: 100%;
-            max-width: 700px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 24px 28px;
+            max-width: 1520px;
+            margin: 0 auto;
+            background: #1e3a5f;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 16px 20px;
             position: relative;
             overflow: hidden;
+        }
+
+        /* Remove glow orbs */
+        .glow-orb {
+            display: none;
         }
 
         /* Glow orbs */
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
+            filter: blur(60px);
+            opacity: 0.4;
             z-index: 0;
             pointer-events: none;
         }
 
         .orb-1 {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, #06b6d4, #0891b2);
-            top: -80px;
-            right: 50px;
+            width: 150px;
+            height: 150px;
+            background: #f59e0b;
+            top: -60px;
+            right: 40px;
         }
 
         .orb-2 {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #22d3ee, #06b6d4);
-            bottom: -60px;
-            left: 100px;
-        }
-
-        .orb-3 {
             width: 100px;
             height: 100px;
-            background: #06d6a0;
-            top: 50%;
-            left: -30px;
-            opacity: 0.3;
+            background: #22c55e;
+            bottom: -40px;
+            left: 80px;
         }
 
         .content {
@@ -80,75 +74,105 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .left-section {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 0.5px;
         }
 
         .age-badge {
-            background: rgba(6, 182, 212, 0.2);
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
             border-radius: 20px;
-            padding: 4px 12px;
-            font-size: 12px;
-            color: #67e8f9;
+            padding: 3px 10px;
+            font-size: 11px;
+            color: #fcd34d;
             font-weight: 500;
         }
 
         .big-percentage {
-            font-size: 48px;
+            font-size: 27px;
             font-weight: 700;
             color: #fff;
             line-height: 1;
         }
 
         .big-percentage span {
-            font-size: 28px;
+            font-size: 15px;
             opacity: 0.6;
             font-weight: 500;
         }
 
         /* Progress bar */
         .progress-section {
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
 
         .progress-track {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.08);
+            height: 6px;
+            /* Vibrant life phases */
+            background: linear-gradient(90deg,
+                    #00d26a 0%,
+                    /* Bright Green */
+                    #00d26a 24%,
+                    /* Age 20 */
+                    #ffc107 24%,
+                    /* Golden Yellow */
+                    #ffc107 48%,
+                    /* Age 40 */
+                    #FF6700 48%,
+                    /* Bright Orange */
+                    #FF6700 72%,
+                    /* Age 60 */
+                    #FF0000 72%,
+                    /* Vivid Red */
+                    #FF0000 100%
+                    /* Age 83 */
+                );
             border-radius: 10px;
             position: relative;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            overflow: hidden;
+        }
+
+        /* No overlay - show all colors at full brightness */
+        .progress-track::after {
+            display: none;
         }
 
         .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #0e7490 0%, #06b6d4 40%, #22d3ee 80%, #67e8f9 100%);
-            border-radius: 10px;
-            position: relative;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+            display: none;
         }
 
-
+        /* Progress dot indicator at current position */
+        .progress-dot {
+            position: absolute;
+            top: 50%;
+            left: var(--progress, 0%);
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            background: #000;
+            border-radius: 50%;
+            z-index: 10;
+            transition: left 1s ease-out;
+        }
 
         .milestone {
             position: absolute;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 3px;
-            height: 14px;
+            width: 2px;
+            height: 12px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 2px;
         }
@@ -156,72 +180,56 @@
         .milestone::after {
             content: attr(data-label);
             position: absolute;
-            top: 18px;
+            top: 14px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.35);
-            font-weight: 500;
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.3);
         }
 
         /* Stats grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
         }
 
         .stat-box {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            padding: 14px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 10px 8px;
             text-align: center;
-            transition: all 0.3s ease;
         }
 
-        .stat-box:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.12);
-            transform: translateY(-2px);
-        }
-
+        /* Removed highlight - all boxes same style */
         .stat-box.highlight {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(34, 211, 238, 0.15));
-            border-color: rgba(34, 211, 238, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.08);
         }
 
         .stat-value {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             color: #fff;
             margin-bottom: 2px;
         }
 
         .stat-label {
-            font-size: 9px;
-            color: rgba(255, 255, 255, 0.45);
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.5);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             font-weight: 500;
         }
 
-        /* Compact mode for smaller width */
-        @media (max-width: 600px) {
-            .widget {
-                padding: 20px;
-            }
-
+        @media (max-width: 500px) {
             .stats-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
 
             .big-percentage {
-                font-size: 36px;
-            }
-
-            .stat-value {
-                font-size: 16px;
+                font-size: 28px;
             }
         }
     </style>
@@ -231,111 +239,98 @@
     <div class="widget">
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
-        <div class="glow-orb orb-3"></div>
 
         <div class="content">
-            <!-- Header -->
             <div class="header-row">
                 <div class="left-section">
                     <span class="title">Life Progress</span>
                     <span class="age-badge" id="ageBadge">Age 35</span>
                 </div>
-                <div class="big-percentage" id="percentage">44.5<span>%</span></div>
+                <div class="big-percentage" id="percentage">42.8<span>%</span></div>
             </div>
 
-            <!-- Progress bar -->
             <div class="progress-section">
                 <div class="progress-track">
                     <div class="progress-fill" id="progressFill"></div>
-                    <div class="milestone" style="left: 25%;" data-label="20"></div>
-                    <div class="milestone" style="left: 50%;" data-label="40"></div>
-                    <div class="milestone" style="left: 75%;" data-label="60"></div>
+                    <div class="progress-dot"></div>
+                    <div class="milestone" style="left: 24%;" data-label="20"></div>
+                    <div class="milestone" style="left: 48%;" data-label="40"></div>
+                    <div class="milestone" style="left: 72%;" data-label="60"></div>
                 </div>
             </div>
 
-            <!-- Stats grid -->
             <div class="stats-grid">
                 <div class="stat-box">
                     <div class="stat-value" id="yearsLived">35</div>
                     <div class="stat-label">Years Lived</div>
                 </div>
                 <div class="stat-box highlight">
-                    <div class="stat-value" id="yearsLeft">45</div>
+                    <div class="stat-value" id="yearsLeft">48</div>
                     <div class="stat-label">Years Left</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value" id="monthsLeft">540</div>
+                    <div class="stat-value" id="monthsLeft">569</div>
                     <div class="stat-label">Months Left</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value" id="weeksLeft">2,340</div>
+                    <div class="stat-value" id="weeksLeft">2,475</div>
                     <div class="stat-label">Weeks Left</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value" id="daysLeft">16,425</div>
+                    <div class="stat-value" id="daysLeft">17,325</div>
                     <div class="stat-label">Days Left</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="weekendsLeft">2,475</div>
+                    <div class="stat-label">Weekends Left</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Life Progress Calculator
-        // DOB: June 2, 1990 | Life Expectancy: 80 years
+        const DOB = new Date(1990, 5, 2); // June 2, 1990
+        const LIFE_EXPECTANCY = 83;
 
-        const DOB = new Date(1990, 5, 2); // Month is 0-indexed (5 = June)
-        const LIFE_EXPECTANCY = 80;
-
-        function calculateLifeProgress() {
+        function calculate() {
             const now = new Date();
-            const expectedEnd = new Date(DOB);
-            expectedEnd.setFullYear(expectedEnd.getFullYear() + LIFE_EXPECTANCY);
+            const end = new Date(DOB);
+            end.setFullYear(end.getFullYear() + LIFE_EXPECTANCY);
 
-            const totalLifeMs = expectedEnd - DOB;
-            const livedMs = now - DOB;
+            const total = end - DOB;
+            const lived = now - DOB;
 
-            const percentage = (livedMs / totalLifeMs) * 100;
-            const yearsLived = livedMs / (1000 * 60 * 60 * 24 * 365.25);
+            const pct = (lived / total) * 100;
+            const yearsLived = lived / (1000 * 60 * 60 * 24 * 365.25);
             const yearsLeft = LIFE_EXPECTANCY - yearsLived;
-            const monthsLeft = Math.floor(yearsLeft * 12);
-            const weeksLeft = Math.floor(yearsLeft * 52.1775);
-            const daysLeft = Math.floor(yearsLeft * 365.25);
 
             return {
-                percentage: percentage.toFixed(1),
+                pct: pct.toFixed(1),
                 age: Math.floor(yearsLived),
                 yearsLived: Math.floor(yearsLived),
                 yearsLeft: Math.ceil(yearsLeft),
-                monthsLeft: monthsLeft,
-                weeksLeft: weeksLeft,
-                daysLeft: daysLeft
+                monthsLeft: Math.floor(yearsLeft * 12),
+                weeksLeft: Math.floor(yearsLeft * 52.1775),
+                daysLeft: Math.floor(yearsLeft * 365.25),
+                weekendsLeft: Math.floor(yearsLeft * 52.1775) // Same as weeks - one weekend per week
             };
         }
 
-        function formatNumber(num) {
-            return num.toLocaleString();
+        function update() {
+            const d = calculate();
+            document.getElementById('percentage').innerHTML = `${d.pct}<span>%</span>`;
+            document.querySelector('.progress-track').style.setProperty('--progress', `${d.pct}%`);
+            document.getElementById('ageBadge').textContent = `Age ${d.age}`;
+            document.getElementById('yearsLived').textContent = d.yearsLived;
+            document.getElementById('yearsLeft').textContent = d.yearsLeft;
+            document.getElementById('monthsLeft').textContent = d.monthsLeft.toLocaleString();
+            document.getElementById('weeksLeft').textContent = d.weeksLeft.toLocaleString();
+            document.getElementById('daysLeft').textContent = d.daysLeft.toLocaleString();
+            document.getElementById('weekendsLeft').textContent = d.weekendsLeft.toLocaleString();
         }
 
-        function updateDisplay() {
-            const data = calculateLifeProgress();
-
-            document.getElementById('percentage').innerHTML = `${data.percentage}<span>%</span>`;
-            document.getElementById('progressFill').style.width = `${data.percentage}%`;
-            document.getElementById('ageBadge').textContent = `Age ${data.age}`;
-            document.getElementById('yearsLived').textContent = data.yearsLived;
-            document.getElementById('yearsLeft').textContent = data.yearsLeft;
-            document.getElementById('monthsLeft').textContent = formatNumber(data.monthsLeft);
-            document.getElementById('weeksLeft').textContent = formatNumber(data.weeksLeft);
-            document.getElementById('daysLeft').textContent = formatNumber(data.daysLeft);
-        }
-
-        // Initialize with animation delay
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(updateDisplay, 300);
-        });
-
-        // Update every minute
-        setInterval(updateDisplay, 60000);
+        window.addEventListener('DOMContentLoaded', () => setTimeout(update, 200));
+        setInterval(update, 60000);
     </script>
 </body>
 
